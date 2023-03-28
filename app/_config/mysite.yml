@@ -1,0 +1,21 @@
+---
+Name: myproject
+---
+SilverStripe\Core\Manifest\ModuleManifest:
+  project: app
+
+SilverStripe\Core\Injector\Injector:
+  Psr\SimpleCache\CacheInterface.GitHubClient:
+    class: Symfony\Component\Cache\Adapter\FilesystemAdapter
+    constructor:
+      namespace: 'GitHubClient'
+      defaultLifetime: 6000
+      directory: '`TEMP_PATH`'
+  Github\Client:
+    class: Github\Client
+    calls:
+      - [authenticate, ['`GITHUB_TOKEN`', null, '`Github\AuthMethod::ACCESS_TOKEN`']]
+      - [addCache, ['%$Psr\SimpleCache\CacheInterface.GitHubClient']]
+  MaximeRainville\GithubAudit\Tasks\FetchRepos:
+    constructor:
+      - '%$Github\Client'
