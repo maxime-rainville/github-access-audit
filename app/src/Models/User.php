@@ -29,6 +29,7 @@ class User extends DataObject
         'Login' => 'Login',
         'RepoAccessSummary' => 'Repositories',
         'AccessReview' => 'Access Review',
+        'Note' => 'Note'
     ];
 
     public function Title()
