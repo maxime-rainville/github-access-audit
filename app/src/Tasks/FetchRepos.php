@@ -3,13 +3,11 @@
 namespace MaximeRainville\GithubAudit\Tasks;
 
 use Generator;
-use Github\AuthMethod;
 use Github\Client;
 use MaximeRainville\GithubAudit\Models\Organisation;
 use MaximeRainville\GithubAudit\Models\Repository;
 use MaximeRainville\GithubAudit\Models\User;
-use SilverStripe\Core\Environment;
-use SilverStripe\Core\Injector\Injector;
+
 use SilverStripe\Dev\BuildTask;
 
 class FetchRepos extends BuildTask
@@ -24,7 +22,6 @@ class FetchRepos extends BuildTask
 
     public function run($request)
     {
-        // dd($this->client->repository()->show('silverstripe','silverstripe-framework-ghsa-pfcw-wfpx-2r26'));
         $this->loopOrgs();
     }
 
@@ -42,7 +39,7 @@ class FetchRepos extends BuildTask
     {
         foreach ($this->repoFetcher($org->Name) as $repoData) {
             if ('silverstripe-framework-ghsa-pfcw-wfpx-2r26' === $repoData['name']) {
-                // This is a repo we can't delete
+                // This is a temporary private fork we can't delete
                 continue;
             }
 
