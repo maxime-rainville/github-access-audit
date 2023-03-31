@@ -2,6 +2,8 @@
 
 This simple Silverstripe CMS project provides a way to review everyone who has access to repos on a specific GitHub org.
 
+This is not meant to be some long live project. Basically you just use it to get the data you need and blast it afterwards.
+
 ## Setup
 
 - Pull down the local repo and set it up like any Silverstripe CMS site.
