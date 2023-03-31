@@ -2,6 +2,7 @@
 
 namespace MaximeRainville\GithubAudit\Tasks;
 
+use Exception;
 use Generator;
 use Github\Client;
 use MaximeRainville\GithubAudit\Models\Organisation;
@@ -15,6 +16,8 @@ class FetchRepos extends BuildTask
 
     private static $segment = 'fetch-repos';
 
+    private array $failed_repos = [];
+
     public function __construct(private Client $client)
     {
         parent::__construct();
@@ -23,6 +26,13 @@ class FetchRepos extends BuildTask
     public function run($request)
     {
         $this->loopOrgs();
+
+        if ($this->failed_repos) {
+            echo "\n\nCould not fetch data for the following repositories:\n";
+            foreach ($this->failed_repos as $repo) {
+                echo "- $repo\n";
+            }
+        }
     }
 
     private function loopOrgs(): void
@@ -30,7 +40,7 @@ class FetchRepos extends BuildTask
         $orgs = Organisation::get();
 
         foreach ($orgs as $org) {
-            echo "Fetching Repos for {$org->Name}\n";
+            echo "\nFetching Repos for {$org->Name}\n";
             $this->loopRepos($org);
         }
     }
@@ -38,22 +48,27 @@ class FetchRepos extends BuildTask
     private function loopRepos(Organisation $org): void
     {
         foreach ($this->repoFetcher($org->Name) as $repoData) {
-            if ('silverstripe-framework-ghsa-pfcw-wfpx-2r26' === $repoData['name']) {
-                // This is a temporary private fork we can't delete
-                continue;
-            }
-
             echo "- processing {$repoData['name']}\n";
             $repo = $org->Repositories()->filter('Name', $repoData['name'])->first();
             if (!$repo) {
                 $repo = Repository::create();
+            } elseif ($repo->Skip) {
+                continue;
             }
 
             $repo->Name = $repoData['name'];
             $repo->GithubId = $repoData['id'];
             $repo->OrganisationID = $org->ID;
             $repo->write();
-            $this->addCollaborators($org, $repo);
+            try {
+                $this->addCollaborators($org, $repo);
+            } catch (Exception $ex) {
+                $repo->Notes = $ex->getMessage() . "\n" . $ex->getTraceAsString();
+                echo "REPO FETCHING Failed: {$ex->getMessage()}\n";
+                $this->failed_repos[] = $org->Name . '/' . $repo->Name;
+                $repo->write();
+            }
+
         }
     }
 

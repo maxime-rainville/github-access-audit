@@ -19,6 +19,8 @@ class Repository extends DataObject
     private static $db = [
         'Name' => 'Varchar(255)',
         'GithubId' => 'Int',
+        'Skip' => 'Boolean',
+        'Notes' => 'Text',
     ];
 
     private static $has_one = [
@@ -33,9 +35,22 @@ class Repository extends DataObject
         ]
     ];
 
+    private static $defaults = [
+        'Skip' => false,
+    ];
+
     private static $summary_fields = [
         'Name' => 'Name',
         'Organisation.Name' => 'Organisation',
     ];
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+
+        $fields->fieldByName('Root.Main.Skip')->setDescription('Some repos (e.g. Private temporary forks attached to security notices) should not be included in the report.');
+
+        return $fields;
+    }
 
 }
