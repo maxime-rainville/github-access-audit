@@ -16,14 +16,14 @@ This is not meant to be some long live project. Basically you just use it to get
 - Under `/a/github/organisation` create all the orgs you plan to query. You only need to specify the name.
 - Run `sake dev/tasks/fetch-repos` to fetch all your data.
 
-This will fetch all the repos for the provided origanisations and let you know which users have access to them. You can review the data in the CMS in the GitHub ModelAdmin.
+This will fetch all the repos for the provided organisations and let you know which users have access to them. You can review the data in the CMS in the GitHub ModelAdmin.
 
 ## Fetching Packagist data
 - Log into the CMS
 - Under `/a/packagist/organisation` create all the orgs you plan to query. You only need to specify the name.
 - Run `sake dev/tasks/fetch-packages` to fetch all your data.
 
-This will fetch all the packages for the provided origanisations and let you know which maintainers have access to them. You can review the data in the CMS in the GitHub ModelAdmin.
+This will fetch all the packages for the provided organisations and let you know which maintainers have access to them. You can review the data in the CMS in the GitHub ModelAdmin.
 
 ## Clearing data
 
