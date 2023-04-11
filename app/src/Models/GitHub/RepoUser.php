@@ -1,12 +1,12 @@
 <?php
 
-namespace MaximeRainville\GithubAudit\Models;
+namespace MaximeRainville\GithubAudit\Models\GitHub;
 
 use SilverStripe\ORM\DataObject;
 
 class RepoUser extends DataObject
 {
-    private static $table_name = 'RepoUser';
+    private static $table_name = 'GHRepoUser';
 
     private static $db = [
         'Roles' => 'Varchar(255)'

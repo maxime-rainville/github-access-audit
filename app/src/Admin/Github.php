@@ -1,10 +1,10 @@
 <?php
 namespace MaximeRainville\GithubAudit\Admin;
 
-use MaximeRainville\GithubAudit\Models\Organisation;
-use MaximeRainville\GithubAudit\Models\Repository;
-use MaximeRainville\GithubAudit\Models\RepoUser;
-use MaximeRainville\GithubAudit\Models\User;
+use MaximeRainville\GithubAudit\Models\GitHub\Organisation;
+use MaximeRainville\GithubAudit\Models\GitHub\Repository;
+use MaximeRainville\GithubAudit\Models\GitHub\RepoUser;
+use MaximeRainville\GithubAudit\Models\GitHub\User;
 use SilverStripe\Admin\ModelAdmin;
 
 class GitHub extends ModelAdmin

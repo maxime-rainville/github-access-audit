@@ -1,43 +1,35 @@
 <?php
 
-namespace MaximeRainville\GithubAudit\Models;
+namespace MaximeRainville\GithubAudit\Models\Packagist;
 
-use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
 
-class User extends DataObject
+class Maintainer extends DataObject
 {
-
-    private static $table_name = 'User';
+    private static $table_name = 'PackagistMaintainer';
 
     private static $db = [
-        'Login' => 'Varchar(255)',
-        'GithubId' => 'Int',
+        'Title' => 'Varchar(255)',
         'AccessReview' => 'Enum("TODO, GOOD, BAD", "TODO")',
         'AvatarUrl' => 'Varchar(255)',
         'Note' => 'Text',
     ];
 
     private static $belongs_many_many = [
-        'Repositories' => Repository::class,
+        'Packages' => Packages::class,
     ];
 
     private static $summary_fields = [
         'Avatar' => 'Avatar',
-        'Login' => 'Login',
-        'RepoAccessSummary' => 'Repositories',
+        'Title' => 'Login',
+        'PackagesAccessSummary' => 'Repositories',
         'AccessReview' => 'Access Review',
         'Note' => 'Note'
     ];
 
-    public function Title()
-    {
-        return $this->Login;
-    }
-
-    public function RepositoriesCount(): int
+    public function PackagesCount(): int
     {
         return $this->Repositories()->Count();
     }
@@ -56,14 +48,14 @@ class User extends DataObject
     {
         $fields = parent::getCMSFields();
 
-        $login = ArrayData::create(['Title' => 'Login'])->renderWith(
+        $login = ArrayData::create(['Title' => 'Login', 'Name' => $this->Title])->renderWith(
             FormField::class . '_holder',
             ['Field' => $this->getProfileLink()]
         );
 
         $fields->replaceField(
-            'Login',
-            LiteralField::create('GitHub Link', $login)
+            'Title',
+            LiteralField::create('Packagist Link', $login)
         );
 
         $fields->removeByName('AvatarUrl');
@@ -71,15 +63,14 @@ class User extends DataObject
         return $fields;
     }
 
-    public function getRepoAccessSummary()
+    public function getPackageAccessSummary()
     {
-        $count = $this->RepositoriesCount();
-        $topFiveRepos = $this->Repositories()->limit(3)->map('ID', 'Name')->toArray();
-        if ($count <= 5) {
-            return implode(', ', $topFiveRepos);
+        $count = $this->PackagesCount();
+        $top3 = $this->Packages()->limit(3)->map('ID', 'Title')->toArray();
+        if ($count <= 3) {
+            return implode(', ', $top3);
         } else {
-            return implode(', ', $topFiveRepos) . ' and ' . ($count - 3) . ' more...';
+            return implode(', ', $top3) . ' and ' . ($count - 3) . ' more...';
         }
     }
 }
-

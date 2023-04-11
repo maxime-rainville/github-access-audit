@@ -1,12 +1,12 @@
 <?php
 
-namespace MaximeRainville\GithubAudit\Models;
+namespace MaximeRainville\GithubAudit\Models\GitHub;
 
 use SilverStripe\ORM\DataObject;
 
 class Organisation extends DataObject
 {
-    private static $table_name = 'Organisation';
+    private static $table_name = 'GHOrganisation';
 
     private static $db = [
         'Name' => 'Varchar(255)',

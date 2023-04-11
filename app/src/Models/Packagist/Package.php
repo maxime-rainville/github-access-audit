@@ -1,6 +1,6 @@
 <?php
 
-namespace MaximeRainville\GithubAudit\Models;
+namespace MaximeRainville\GithubAudit\Models\Packagist;
 
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\ManyManyThroughList;
@@ -12,14 +12,12 @@ use SilverStripe\ORM\ManyManyThroughList;
  * @property int $OrganisationID
  * @property Organisation $Organisation
  */
-class Repository extends DataObject
+class Package extends DataObject
 {
-    private static $table_name = 'Repository';
+    private static $table_name = 'PackagistPackage';
 
     private static $db = [
-        'Name' => 'Varchar(255)',
-        'GithubId' => 'Int',
-        'Skip' => 'Boolean',
+        'Title' => 'Varchar(255)',
         'Notes' => 'Text',
     ];
 
@@ -28,10 +26,10 @@ class Repository extends DataObject
     ];
 
     private static $many_many = [
-        'Users' => [
-            'through' => RepoUser::class,
-            'from' => 'Repository',
-            'to' => 'User',
+        'Maintainers' => [
+            'through' => PackageMaintainer::class,
+            'from' => 'Package',
+            'to' => 'Maintainer',
         ]
     ];
 
@@ -40,7 +38,7 @@ class Repository extends DataObject
     ];
 
     private static $summary_fields = [
-        'Name' => 'Name',
+        'Title' => 'Title',
         'Organisation.Name' => 'Organisation',
     ];
 
