@@ -18,20 +18,20 @@ class Maintainer extends DataObject
     ];
 
     private static $belongs_many_many = [
-        'Packages' => Packages::class,
+        'Packages' => Package::class,
     ];
 
     private static $summary_fields = [
         'Avatar' => 'Avatar',
         'Title' => 'Login',
-        'PackagesAccessSummary' => 'Repositories',
+        'PackagesAccessSummary' => 'Packages',
         'AccessReview' => 'Access Review',
         'Note' => 'Note'
     ];
 
     public function PackagesCount(): int
     {
-        return $this->Repositories()->Count();
+        return $this->Packages()->Count();
     }
 
     public function getProfileLink()
@@ -63,7 +63,7 @@ class Maintainer extends DataObject
         return $fields;
     }
 
-    public function getPackageAccessSummary()
+    public function getPackagesAccessSummary()
     {
         $count = $this->PackagesCount();
         $top3 = $this->Packages()->limit(3)->map('ID', 'Title')->toArray();

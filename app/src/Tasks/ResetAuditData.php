@@ -2,10 +2,12 @@
 
 namespace MaximeRainville\GithubAudit\Tasks;
 
-use MaximeRainville\GithubAudit\Models\Repository;
-use MaximeRainville\GithubAudit\Models\RepoUser;
-use MaximeRainville\GithubAudit\Models\User;
-
+use MaximeRainville\GithubAudit\Models\GitHub\Repository;
+use MaximeRainville\GithubAudit\Models\GitHub\RepoUser;
+use MaximeRainville\GithubAudit\Models\GitHub\User;
+use MaximeRainville\GithubAudit\Models\Packagist\Maintainer;
+use MaximeRainville\GithubAudit\Models\Packagist\Package;
+use MaximeRainville\GithubAudit\Models\Packagist\PackageMaintainer;
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\ORM\DataObjectSchema;
 use SilverStripe\ORM\DB;
@@ -21,6 +23,9 @@ class ResetAuditData extends BuildTask
             User::class,
             Repository::class,
             RepoUser::class,
+            Maintainer::class,
+            Package::class,
+            PackageMaintainer::class
         ];
 
         $schema = DataObjectSchema::singleton();
