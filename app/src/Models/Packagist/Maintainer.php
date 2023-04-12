@@ -2,6 +2,7 @@
 
 namespace MaximeRainville\GithubAudit\Models\Packagist;
 
+use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
