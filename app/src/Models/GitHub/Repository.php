@@ -42,6 +42,7 @@ class Repository extends DataObject
     private static $summary_fields = [
         'Name' => 'Name',
         'Organisation.Name' => 'Organisation',
+        'Users.Count' => '# Users',
     ];
 
     public function getCMSFields()

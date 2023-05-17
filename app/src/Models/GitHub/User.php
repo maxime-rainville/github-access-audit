@@ -32,6 +32,12 @@ class User extends DataObject
         'Note' => 'Note'
     ];
 
+    private static $searchable_fields = [
+        'Login',
+        'AccessReview',
+        'Note',
+    ];
+
     public function Title()
     {
         return $this->Login;

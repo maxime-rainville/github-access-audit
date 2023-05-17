@@ -16,4 +16,11 @@ class RepoUser extends DataObject
         'Repository' => Repository::class,
         'User' => User::class,
     ];
+
+    private static $summary_fields = [
+        'User.Avatar' => 'Avatar',
+        'User.Login' => 'Login',
+        'Repository.Name' => 'Repository',
+        'Roles',
+    ];
 }

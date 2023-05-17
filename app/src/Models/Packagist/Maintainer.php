@@ -30,6 +30,12 @@ class Maintainer extends DataObject
         'Note' => 'Note'
     ];
 
+    private static $searchable_fields = [
+        'Title',
+        'AccessReview',
+        'Note',
+    ];
+
     public function PackagesCount(): int
     {
         return $this->Packages()->Count();

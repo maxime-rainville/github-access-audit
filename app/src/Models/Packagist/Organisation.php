@@ -16,5 +16,8 @@ class Organisation extends DataObject
         'Packages' => Package::class,
     ];
 
-
+    private static $summary_fields = [
+        'Title',
+        'Packages.Count' => '# Packages',
+    ];
 }

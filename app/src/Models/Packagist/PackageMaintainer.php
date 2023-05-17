@@ -17,4 +17,11 @@ class PackageMaintainer extends DataObject
         'Package' => Package::class,
         'Maintainer' => Maintainer::class,
     ];
+
+    private static $summary_fields = [
+        'Maintainer.Avatar' => 'Avatar',
+        'Maintainer.Title' => 'Login',
+        'Package.Name' => 'Repository',
+        'Roles',
+    ];
 }
