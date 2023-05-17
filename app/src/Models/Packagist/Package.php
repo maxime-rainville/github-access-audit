@@ -40,6 +40,7 @@ class Package extends DataObject
     private static $summary_fields = [
         'Title' => 'Title',
         'Organisation.Title' => 'Organisation',
+        'Maintainers.Count' => '# Maintainers',
     ];
 
     public function getCMSFields()

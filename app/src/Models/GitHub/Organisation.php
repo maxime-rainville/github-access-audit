@@ -17,5 +17,9 @@ class Organisation extends DataObject
         'Repositories' => Repository::class,
     ];
 
+    private static $summary_fields = [
+        'Name',
+        'Repositories.Count' => '# Repositories',
+    ];
 
 }
