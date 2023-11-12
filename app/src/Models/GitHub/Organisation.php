@@ -2,7 +2,11 @@
 
 namespace MaximeRainville\GithubAudit\Models\GitHub;
 
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordViewer;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class Organisation extends DataObject
 {
@@ -21,5 +25,31 @@ class Organisation extends DataObject
         'Name',
         'Repositories.Count' => '# Repositories',
     ];
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+
+        if ($this->isInDB()) {
+            $fields->addFieldsToTab(
+                'Root.Users',
+                [
+                    GridField::create(
+                        'Users',
+                        'Users',
+                        $this->Users,
+                        GridFieldConfig_RecordViewer::create()
+                    ),
+                ]
+            );
+        }
+
+        return $fields;
+    }
+
+    public function getUsers(): DataList
+    {
+        return User::get()->filter('Repositories.OrganisationID', $this->ID);
+    }
 
 }

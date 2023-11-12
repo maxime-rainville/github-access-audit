@@ -19,6 +19,7 @@ class Package extends DataObject
     private static $db = [
         'Title' => 'Varchar(255)',
         'Notes' => 'Text',
+        'Skip' => 'Boolean',
     ];
 
     private static $has_one = [
