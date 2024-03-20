@@ -6,6 +6,8 @@ use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
 
 class User extends DataObject
 {
@@ -73,6 +75,14 @@ class User extends DataObject
         );
 
         $fields->removeByName('AvatarUrl');
+
+        /** @var GridField $gridfield */
+        $gridfield = $fields->fieldByName('Root.Repositories.Repositories');
+        $gridfield->getConfig()->getComponentByType(GridFieldDataColumns::class)->setDisplayFields([
+            'Name' => 'Name',
+            'Organisation.Name' => 'Organisation',
+            'Join.Roles' => 'Roles',
+        ]);
 
         return $fields;
     }

@@ -53,4 +53,9 @@ class Package extends DataObject
         return $fields;
     }
 
+    public function getRemoteLink()
+    {
+        return 'https://packagist.org/packages/' . $this->Organisation->title . '/' . $this->Title;
+    }
+
 }

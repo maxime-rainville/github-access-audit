@@ -21,6 +21,6 @@ class RepoUser extends DataObject
         'User.Avatar' => 'Avatar',
         'User.Login' => 'Login',
         'Repository.Name' => 'Repository',
-        'Roles',
+        'Roles' => 'Roles',
     ];
 }

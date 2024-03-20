@@ -19,3 +19,7 @@ SilverStripe\Core\Injector\Injector:
   MaximeRainville\GithubAudit\Tasks\FetchRepos:
     constructor:
       - '%$Github\Client'
+
+SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor:
+  extensions:
+    - MaximeRainville\GithubAudit\GridFieldRemoteLinkExtension
