@@ -4,13 +4,6 @@ Name: recipe-adminroutes
 After:
   - '#adminroutes'
 ---
-SilverStripe\Control\Director:
-  rules:
-    admin: false
-    '': 'SilverStripe\Admin\AdminRootController'
-    'a': 'SilverStripe\Admin\AdminRootController'
-
 # Set the default panel in the administration area
 SilverStripe\Admin\AdminRootController:
-  url_base: 'a'
   default_panel: MaximeRainville\GithubAudit\Admin\GitHub
